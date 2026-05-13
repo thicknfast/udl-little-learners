@@ -16,9 +16,12 @@ export default function About() {
           {/* Headshot */}
           <div className="mx-auto shrink-0 md:mx-0">
             <div className="relative h-72 w-72 overflow-hidden rounded-2xl bg-blue/10 shadow-lg">
-              <div className="flex h-full items-center justify-center text-center text-sm text-text-light">
-                <p>Headshot<br />coming soon</p>
-              </div>
+              <Image
+                src="/images/headshot.jpg"
+                alt="Jeff Horwitz"
+                fill
+                className="object-cover"
+              />
             </div>
             <div className="mt-4 flex justify-center">
               <Image
