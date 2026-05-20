@@ -5,8 +5,9 @@
 Companion Resource Hub for Jeff Horwitz's book *UDL for Little Learners: Practical Strategies for Early Childhood Educators* (Jossey-Bass/Wiley).
 
 - **Live URL:** https://udl-little-learners.vercel.app
-- **Target Domain:** udlforlittlelearners.com (not yet purchased)
-- **Deployed:** Vercel (currently under `ahdatalytics` org — to be transferred to Jeff)
+- **Target Domain:** udlforlittlelearners.com (owned by Jeff — DNS being configured at GoDaddy)
+- **Deployed:** Vercel (Jeff's account: `thicknfast`) — auto-deploys on every `git push`
+- **GitHub:** https://github.com/thicknfast/udl-little-learners
 - **QR Code:** `public/qr-code.svg` / `public/qr-code.png` → https://udlforlittlelearners.com/resources
 
 ---
@@ -21,19 +22,25 @@ Companion Resource Hub for Jeff Horwitz's book *UDL for Little Learners: Practic
 | MDX rendering | next-mdx-remote v6 (React Server Components) |
 | Frontmatter | gray-matter |
 | Fonts | Nunito (headings, via @fontsource) + Inter (body, via @fontsource) |
-| Deployment | Vercel (free tier) |
+| Deployment | Vercel (free tier) — connected to GitHub, auto-deploys on push |
 | Contact form | Formspree (placeholder — needs real FORM_ID) |
 
 ---
 
 ## Commands
 
+Node is installed via nvm. Load it first in any new terminal session:
+
+```bash
+export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"
+```
+
 ```bash
 npm install              # install dependencies
 npm run dev              # start dev server (http://localhost:3000)
 npx next build           # production build (also runs TypeScript check)
 npm run lint             # run ESLint
-vercel --prod            # deploy to Vercel production (requires Vercel CLI)
+git push                 # deploy to Vercel production (auto-triggers on push to master)
 ```
 
 ---
@@ -63,8 +70,9 @@ udl-little-learners/
 │   │   ├── cover.png           # Book cover image
 │   │   ├── headshot.jpg        # Author headshot
 │   │   ├── hcg-logo.png        # HCG consulting logo
-│   │   └── classroom/          # Classroom photos
-│   │       └── calm-spaces.jpg
+│   │   └── calm-spaces/        # Calm spaces photo gallery (8 JPEGs, downloaded from Google Drive)
+│   │       ├── calm-space-1.jpg
+│   │       └── ... (calm-space-2 through calm-space-8.jpg)
 │   ├── resources/              # Downloadable PDFs
 │   │   ├── discussion-and-activities.pdf
 │   │   ├── specials.pdf
@@ -98,6 +106,7 @@ udl-little-learners/
 │   │   ├── Footer.tsx          # Site footer
 │   │   ├── MdxContent.tsx      # MDX renderer component
 │   │   ├── Nav.tsx             # Navigation bar
+│   │   ├── PhotoSlideshow.tsx  # Photo slideshow component (arrows, dots, thumbnails)
 │   │   └── ResourceCard.tsx    # Resource card component
 │   └── lib/
 │       ├── resources.ts        # Resource loading/sorting logic
@@ -147,6 +156,8 @@ downloadFile: "/resources/file.pdf"    # Path to PDF in public/resources/ — or
 videoUrl: null                         # YouTube/Vimeo embed URL — or null
 driveUrl: null                         # Google Drive link — or null
 externalUrl: null                      # Any external URL (Instagram, Canva, Google Docs, websites) — or null
+photos:                                # For type: photo — list of image paths in public/images/
+  - /images/calm-spaces/calm-space-1.jpg
 order: 1                               # Sort order within the chapter/section
 featured: true                         # Optional — shows resource in "Featured" section at top of /resources
 ---
@@ -162,21 +173,35 @@ MDX body content goes here. Supports markdown headings, lists, bold, links, etc.
 | `discussion-guide` | Discussion & Activities | Study guide with reflection questions |
 | `template` | Templates & Lesson Plans | Google Docs, Slides, printable templates |
 | `reference` | Reference Sheets | Websites, book lists, anchor charts, guides |
-| `photo` | Photos & Classroom Examples | Classroom photos |
+| `photo` | Photos & Classroom Examples | Classroom photos — renders as slideshow if `photos` field is set |
 | `video` | Videos | YouTube, Instagram reels, video walkthroughs |
 
 ### Resource Link Types
 
-Resources can link to content in four ways (all optional, use whichever applies):
+Resources can link to content in multiple ways (all optional, use whichever applies):
 
 | Field | Renders as | When to use |
 |---|---|---|
 | `downloadFile` | Orange "Download PDF" button | For PDFs hosted in `public/resources/` |
 | `externalUrl` | Blue "Open Resource" button | For any external link (Google Docs, Instagram, Canva, websites) |
 | `videoUrl` | Embedded iframe player | For YouTube/Vimeo embeds |
-| `driveUrl` | "View on Google Drive" text link | For Google Drive files/folders |
+| `driveUrl` | "View on Google Drive" text link | For Google Drive files/folders (non-photo) |
+| `photos` | Interactive slideshow | For `type: photo` resources — list image paths from `public/images/` |
 
 A resource can have multiple link types (e.g., both a downloadFile PDF and an externalUrl to the editable Google Doc version).
+
+### Photo Slideshow
+
+Resources with `type: photo` and a `photos` array render a full slideshow via `src/components/PhotoSlideshow.tsx`:
+- Prev/next arrow buttons
+- Photo counter badge (e.g. "2 / 8")
+- Dot indicators
+- Thumbnail strip for direct navigation
+
+To add a new photo gallery:
+1. Create a folder under `public/images/your-gallery-name/`
+2. Add images there (JPG/PNG)
+3. Set `type: photo` and list the paths in the `photos` array in the MDX frontmatter
 
 ### Book Structure
 
@@ -193,8 +218,9 @@ The book has 3 parts + bonus materials. This structure is defined in `src/lib/ty
 2. Fill in the frontmatter (copy an existing resource as a template)
 3. Write the MDX body (a brief description + usage tips)
 4. If it's a downloadable PDF, place the PDF in `public/resources/`
-5. Run `npx next build` to verify it compiles
-6. Deploy with `vercel --prod`
+5. If it's a photo gallery, place images in `public/images/your-folder/` and list them in the `photos` array
+6. Run `npx next build` to verify it compiles
+7. Run `git push` to deploy
 
 ### How to Edit Homepage Content
 
@@ -258,7 +284,7 @@ Playful, warm, early-childhood classroom feel. Rounded corners on cards/buttons,
 - Collection of Reflection Activities (Google Drive folder)
 
 ### Chapter 7: Emotional Literacy (6)
-- Calm Spaces Photo Gallery (on-page photos)
+- Calm Spaces Photo Gallery (8-photo slideshow, images hosted in public/images/calm-spaces/)
 - Give Spark Check-In Routines (Instagram)
 - Give Spark Check-In Samples (Canva)
 - Emotional Regulation Anchor Charts (Instagram)
@@ -307,24 +333,18 @@ Playful, warm, early-childhood classroom feel. Rounded corners on cards/buttons,
 
 ## Deployment
 
-### Current Setup
+The site deploys automatically. Just `git push` and Vercel picks it up within ~1 minute.
 
-The site is deployed on Vercel under the `ahdatalytics` org account. There is no GitHub repo — deploys are done manually via `vercel --prod` from the project directory.
+- **GitHub:** https://github.com/thicknfast/udl-little-learners (branch: `master`)
+- **Vercel:** Connected to GitHub under Jeff's account (`thicknfast`) — auto-deploys on every push to `master`
+- **Vercel dashboard:** https://vercel.com/dashboard
 
-### To Transfer to a New Vercel Account
-
-1. Create a Vercel account at https://vercel.com
-2. Install Vercel CLI: `npm i -g vercel`
-3. From the project directory, run `vercel` and follow prompts to link to the new account
-4. Run `vercel --prod` to deploy
-5. In Vercel dashboard, add custom domain `udlforlittlelearners.com` and configure DNS
-
-### To Set Up a GitHub Repo (Optional)
-
-1. Create a repo on GitHub
-2. `git remote add origin <repo-url>`
-3. `git push -u origin master`
-4. In Vercel dashboard, import the GitHub repo for automatic deploys on push
+To deploy:
+```bash
+git add -A
+git commit -m "your message"
+git push
+```
 
 ---
 
@@ -334,9 +354,7 @@ The site is deployed on Vercel under the `ahdatalytics` org account. There is no
 - [ ] **Amazon link:** Replace the placeholder Amazon buy link in `src/app/book/page.tsx` with the actual book listing URL
 - [ ] **Testimonials:** Replace placeholder testimonials in `content/pages/home.mdx` with real reviewer quotes
 - [ ] **Headshot:** Process `public/images/headshot.jpg` with background removal for cleaner look (optional)
-- [ ] **Domain:** Purchase `udlforlittlelearners.com` and point DNS to Vercel (add as custom domain in Vercel dashboard)
-- [ ] **Vercel transfer:** Transfer project from ahdatalytics Vercel org to Jeff's own Vercel account
-- [ ] **GitHub repo:** Set up a GitHub repo if desired for version control and automatic deploys
+- [ ] **Domain DNS:** Finish configuring GoDaddy DNS to point `udlforlittlelearners.com` to Vercel (delete conflicting `www` CNAME, add Vercel's records)
 
 ---
 
@@ -352,6 +370,7 @@ The site is deployed on Vercel under the `ahdatalytics` org account. There is no
 | Navigation links | `src/components/Nav.tsx` |
 | Footer content | `src/components/Footer.tsx` |
 | Resource card appearance | `src/components/ResourceCard.tsx` |
+| Photo slideshow component | `src/components/PhotoSlideshow.tsx` |
 | Resource detail page layout | `src/app/resources/[slug]/page.tsx` |
 | About page bio text | `src/app/about/page.tsx` |
 | Book page content | `src/app/book/page.tsx` |
