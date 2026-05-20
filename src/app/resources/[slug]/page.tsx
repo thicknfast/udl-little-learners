@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { MdxContent } from "@/components/MdxContent";
 import { ResourceCard } from "@/components/ResourceCard";
+import { PhotoSlideshow } from "@/components/PhotoSlideshow";
 import { getAllResources, getResourceBySlug } from "@/lib/resources";
 import { RESOURCE_TYPE_LABELS } from "@/lib/types";
 import type { Metadata } from "next";
@@ -146,7 +147,10 @@ export default async function ResourceDetail({
             />
           </div>
         )}
-        {!resource.videoUrl && resource.driveUrl && (
+        {resource.type === "photo" && resource.photos && resource.photos.length > 0 && (
+          <PhotoSlideshow photos={resource.photos} alt={resource.title} />
+        )}
+        {!resource.videoUrl && resource.driveUrl && resource.type !== "photo" && (
           <a
             href={resource.driveUrl}
             target="_blank"

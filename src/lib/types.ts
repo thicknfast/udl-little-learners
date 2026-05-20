@@ -20,6 +20,7 @@ export interface ResourceFrontmatter {
   externalUrl: string | null;
   order: number;
   featured?: boolean;
+  photos?: string[];
 }
 
 export interface Resource extends ResourceFrontmatter {
