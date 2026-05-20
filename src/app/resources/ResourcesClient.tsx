@@ -17,6 +17,8 @@ export function ResourcesClient({ resources }: { resources: Resource[] }) {
   const [activeType, setActiveType] = useState<ResourceType | "all">("all");
 
   const typeKeys = Object.keys(RESOURCE_TYPE_LABELS) as ResourceType[];
+  const featured = resources.filter((r) => r.featured);
+  const nonFeatured = resources.filter((r) => !r.featured);
   const filteredByType =
     activeType === "all"
       ? resources
@@ -57,11 +59,25 @@ export function ResourcesClient({ resources }: { resources: Resource[] }) {
           </button>
         </div>
 
+        {/* Featured resources */}
+        {featured.length > 0 && (
+          <div className="mt-8">
+            <h2 className="font-display text-xl font-bold text-orange">
+              Featured Resource
+            </h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              {featured.map((r) => (
+                <ResourceCard key={r.slug} resource={r} />
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Chapter view */}
         {view === "chapter" && (
           <div className="mt-8 space-y-10">
             {BOOK_PARTS.map((part) => {
-              const partResources = resources.filter(
+              const partResources = nonFeatured.filter(
                 (r) => r.part === part.part
               );
               if (partResources.length === 0) return null;
@@ -71,7 +87,7 @@ export function ResourcesClient({ resources }: { resources: Resource[] }) {
                     Part {part.part}: {part.title}
                   </h2>
                   {part.chapters.map((ch) => {
-                    const chapterResources = resources.filter(
+                    const chapterResources = nonFeatured.filter(
                       (r) => r.chapter === ch.num
                     );
                     if (chapterResources.length === 0) return null;
@@ -93,13 +109,13 @@ export function ResourcesClient({ resources }: { resources: Resource[] }) {
             })}
 
             {/* Bonus section */}
-            {resources.filter((r) => r.part === "bonus").length > 0 && (
+            {nonFeatured.filter((r) => r.part === "bonus").length > 0 && (
               <div>
                 <h2 className="font-display text-xl font-bold text-text">
                   Bonus Materials
                 </h2>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  {resources
+                  {nonFeatured
                     .filter((r) => r.part === "bonus")
                     .map((r) => (
                       <ResourceCard key={r.slug} resource={r} />

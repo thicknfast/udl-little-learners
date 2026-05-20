@@ -28,6 +28,9 @@ export function getAllResources(): Resource[] {
       return { ...(data as ResourceFrontmatter), content };
     })
     .sort((a, b) => {
+      // Featured items first
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
       const partOrder = { "1": 1, "2": 2, "3": 3, bonus: 4 };
       const pa = partOrder[a.part] ?? 99;
       const pb = partOrder[b.part] ?? 99;

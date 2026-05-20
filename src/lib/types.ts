@@ -17,7 +17,9 @@ export interface ResourceFrontmatter {
   downloadFile: string | null;
   videoUrl: string | null;
   driveUrl: string | null;
+  externalUrl: string | null;
   order: number;
+  featured?: boolean;
 }
 
 export interface Resource extends ResourceFrontmatter {
