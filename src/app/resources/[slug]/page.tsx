@@ -92,7 +92,7 @@ export default async function ResourceDetail({
           <a
             href={resource.downloadFile}
             download
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-orange-dark"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-teal px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-teal-dark"
           >
             <svg
               className="h-5 w-5"
@@ -112,29 +112,41 @@ export default async function ResourceDetail({
         )}
 
         {/* External resource link */}
-        {resource.externalUrl && (
-          <a
-            href={resource.externalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-blue px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-blue/90"
-          >
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+        {resource.externalUrl && (() => {
+          const isDocx = resource.externalUrl.endsWith('.docx');
+          return (
+            <a
+              href={resource.externalUrl}
+              target={isDocx ? '_self' : '_blank'}
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-blue px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-blue/90"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-            Open Resource
-          </a>
-        )}
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isDocx ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                )}
+              </svg>
+              {isDocx ? 'Download Editable (DOCX)' : 'Open Resource'}
+            </a>
+          );
+        })()}
 
         {/* Video embed or link */}
         {resource.videoUrl && (

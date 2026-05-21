@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Container } from "@/components/Container";
 import { ResourceCard } from "@/components/ResourceCard";
+import { DiscussionGuideCallout } from "@/components/DiscussionGuideCallout";
 import {
   Resource,
   ResourceType,
@@ -59,19 +60,10 @@ export function ResourcesClient({ resources }: { resources: Resource[] }) {
           </button>
         </div>
 
-        {/* Featured resources */}
-        {featured.length > 0 && (
-          <div className="mt-8">
-            <h2 className="font-display text-xl font-bold text-orange">
-              Featured Resource
-            </h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {featured.map((r) => (
-                <ResourceCard key={r.slug} resource={r} />
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Discussion guide hero callout */}
+        <div className="mt-8">
+          <DiscussionGuideCallout />
+        </div>
 
         {/* Chapter view */}
         {view === "chapter" && (

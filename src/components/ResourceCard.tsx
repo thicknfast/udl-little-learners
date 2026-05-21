@@ -3,7 +3,7 @@ import { Resource, RESOURCE_TYPE_LABELS } from "@/lib/types";
 
 const TYPE_COLORS: Record<string, string> = {
   "bonus-chapter": "bg-pink/10 text-pink",
-  "discussion-guide": "bg-orange/10 text-orange",
+  "discussion-guide": "bg-teal/10 text-teal",
   template: "bg-green/10 text-green",
   reference: "bg-blue/10 text-blue",
   photo: "bg-yellow/10 text-yellow",

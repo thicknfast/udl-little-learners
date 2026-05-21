@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { Container } from "@/components/Container";
+import { DiscussionGuideBanner } from "@/components/DiscussionGuideCallout";
 import { getAllResources } from "@/lib/resources";
 
 function getHomeContent() {
@@ -40,7 +41,7 @@ export default function Home() {
               <h1 className="font-display text-4xl font-extrabold leading-tight text-blue sm:text-5xl">
                 UDL for Little Learners
               </h1>
-              <p className="mt-2 font-display text-xl font-medium text-orange">
+              <p className="mt-2 font-display text-xl font-medium text-text-light">
                 {heroSubtitle}
               </p>
               <p className="mt-4 max-w-lg text-lg text-text-light">
@@ -55,7 +56,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/book"
-                  className="rounded-full border-2 border-orange px-6 py-3 text-center font-display font-bold text-orange transition hover:bg-orange hover:text-white"
+                  className="rounded-full border-2 border-border px-6 py-3 text-center font-display font-bold text-text transition hover:border-teal hover:text-teal"
                 >
                   Get the Book
                 </Link>
@@ -64,6 +65,9 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      {/* Discussion guide banner */}
+      <DiscussionGuideBanner />
 
       {/* Testimonials */}
       {testimonials.length > 0 && (
@@ -102,7 +106,7 @@ export default function Home() {
           <div className="mt-6 flex justify-center gap-3">
             <Link
               href="/connect"
-              className="rounded-full bg-orange px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-orange-dark"
+              className="rounded-full bg-teal px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-teal-dark"
             >
               Book Jeff to Speak
             </Link>

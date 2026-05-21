@@ -39,7 +39,7 @@ export default function BookPage() {
             <h1 className="font-display text-3xl font-extrabold text-blue sm:text-4xl">
               UDL for Little Learners
             </h1>
-            <p className="mt-1 font-display text-lg font-medium text-orange">
+            <p className="mt-1 font-display text-lg font-medium text-text-light">
               Practical Strategies for Early Childhood Educators
             </p>
             <p className="mt-4 text-text-light leading-relaxed">
