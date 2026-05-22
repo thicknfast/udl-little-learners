@@ -27,41 +27,67 @@ export default function Home() {
       <section className="py-16 sm:py-24">
         <Container>
           <div className="flex flex-col items-center gap-10 md:flex-row md:gap-16">
-            <div className="shrink-0">
-              <Image
-                src="/images/cover.png"
-                alt="UDL for Little Learners book cover"
-                width={280}
-                height={370}
-                preload
-                className="rounded-xl shadow-xl"
-              />
-            </div>
             <div className="text-center md:text-left">
-              <h1 className="font-display text-4xl font-extrabold leading-tight text-blue sm:text-5xl">
-                UDL for Little Learners
+              <p className="mb-3 text-xs font-bold uppercase tracking-widest text-teal">
+                Companion Resource Hub
+              </p>
+              <h1 className="font-display text-4xl font-extrabold leading-tight text-text sm:text-5xl">
+                UDL for{" "}
+                <span className="text-blue">Little Learners</span>
               </h1>
               <p className="mt-2 font-display text-xl font-medium text-text-light">
                 {heroSubtitle}
               </p>
+              <div className="mt-4 h-1 w-12 rounded bg-teal" />
               <p className="mt-4 max-w-lg text-lg text-text-light">
                 {heroDescription}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/resources"
-                  className="rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+                  className="rounded-md bg-teal px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-teal-dark"
                 >
-                  Explore Resources ({resourceCount})
+                  Explore {resourceCount} Resources
                 </Link>
                 <Link
                   href="/book"
-                  className="rounded-full border-2 border-border px-6 py-3 text-center font-display font-bold text-text transition hover:border-teal hover:text-teal"
+                  className="rounded-md border-2 border-border px-6 py-3 text-center font-display font-bold text-text transition hover:border-teal hover:text-teal"
                 >
                   Get the Book
                 </Link>
               </div>
             </div>
+            <div className="shrink-0">
+              <Image
+                src="/images/cover.png"
+                alt="UDL for Little Learners book cover"
+                width={280}
+                height={370}
+                priority
+                className="book-cover"
+              />
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Stats banner */}
+      <section className="border-y border-border">
+        <Container>
+          <div className="grid grid-cols-2 divide-x divide-border py-10 sm:grid-cols-4">
+            {[
+              { number: resourceCount, suffix: "+", label: "Free resources" },
+              { number: 17, suffix: "", label: "Book chapters covered" },
+              { number: 11, suffix: "+", label: "Downloadable PDFs" },
+              { number: 100, suffix: "%", label: "Free to access" },
+            ].map(({ number, suffix, label }) => (
+              <div key={label} className="px-6 first:pl-0 last:pr-0">
+                <div className="text-4xl font-bold leading-none tracking-tight text-text">
+                  {number}<span className="text-teal">{suffix}</span>
+                </div>
+                <div className="mt-2 text-sm font-medium text-text-light">{label}</div>
+              </div>
+            ))}
           </div>
         </Container>
       </section>

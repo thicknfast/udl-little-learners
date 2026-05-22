@@ -32,3 +32,15 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
 }
+
+.book-cover {
+  transform: rotate(3deg);
+  box-shadow: -8px 12px 0 #F5C242, 0 24px 60px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+  border-radius: 0.75rem;
+  display: block;
+  cursor: default;
+}
+.book-cover:hover {
+  transform: rotate(0deg) scale(1.03);
+}
