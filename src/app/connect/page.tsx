@@ -38,7 +38,7 @@ export default function ConnectPage() {
     const data = new FormData(form);
 
     try {
-      const res = await fetch("https://formspree.io/f/FORM_ID", {
+      const res = await fetch("https://formspree.io/f/xjgdlebr", {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },
