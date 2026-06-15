@@ -27,7 +27,7 @@ export default function PreorderPage() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("https://formspree.io/f/FORM_ID", {
+      const res = await fetch("https://formspree.io/f/mrevjaze", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
