@@ -13,9 +13,15 @@ const BULK_TIERS = [
   { range: "500+",    discount: "50%", price: "$16.00" },
 ];
 
+const RETAILERS = ["Amazon", "Barnes & Noble", "Bookshop.org", "Books-a-Million", "Other"];
+
 export default function PreorderPage() {
-  const [email, setEmail] = useState("");
+  const [form, setForm] = useState({ name: "", email: "", retailer: "", confirmation: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -24,7 +30,10 @@ export default function PreorderPage() {
       const res = await fetch("https://formspree.io/f/FORM_ID", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ email, _subject: "Pre-order Free Content Request" }),
+        body: JSON.stringify({
+          ...form,
+          _subject: `Pre-order Bonus Claim — ${form.name}`,
+        }),
       });
       setStatus(res.ok ? "success" : "error");
     } catch {
@@ -44,9 +53,9 @@ export default function PreorderPage() {
             Pre-Order &amp; Get Free Bonus Content
           </h1>
           <p className="mt-4 text-lg text-text-light leading-relaxed">
-            Order <em>UDL for Little Learners</em> before it launches in December and we&apos;ll
-            send you exclusive bonus content as a thank-you. Enter your email below and
-            we&apos;ll be in touch as soon as the content is ready.
+            Pre-order <em>UDL for Little Learners</em> from any retailer before it launches in
+            December, then submit your order confirmation below. Jeff will send your exclusive
+            bonus content by email — no strings attached.
           </p>
         </div>
 
@@ -99,39 +108,93 @@ export default function PreorderPage() {
             </div>
           </div>
 
-          {/* Email capture */}
+          {/* Claim form */}
           <div className="flex flex-col gap-8">
             <div className="rounded-2xl border border-border bg-white p-8 shadow-sm">
               <h2 className="font-display text-xl font-bold text-text">
-                Claim Your Free Content
+                Claim Your Free Bonus Content
               </h2>
               <p className="mt-2 text-sm text-text-light">
-                Enter your email after you pre-order and we&apos;ll send you the bonus content
-                before the book launches.
+                Pre-order from any retailer, then fill out this form with your order
+                confirmation number. Jeff will send your bonus content by email before
+                launch day.
               </p>
 
               {status === "success" ? (
                 <div className="mt-6 rounded-xl bg-green/10 p-5 text-center">
-                  <p className="font-display font-bold text-green">You&apos;re on the list!</p>
+                  <p className="font-display font-bold text-green">Got it — thank you!</p>
                   <p className="mt-1 text-sm text-text-light">
-                    We&apos;ll email you your free content before launch day.
+                    Jeff will send your free bonus content to the email you provided before
+                    the book launches in December.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-text">
+                      Your name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="Jane Smith"
+                      className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                    />
+                  </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-text">
                       Email address
                     </label>
                     <input
                       id="email"
+                      name="email"
                       type="email"
                       required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={form.email}
+                      onChange={handleChange}
                       placeholder="you@example.com"
                       className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
                     />
+                  </div>
+                  <div>
+                    <label htmlFor="retailer" className="block text-sm font-medium text-text">
+                      Where did you order?
+                    </label>
+                    <select
+                      id="retailer"
+                      name="retailer"
+                      required
+                      value={form.retailer}
+                      onChange={handleChange}
+                      className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                    >
+                      <option value="">Select a retailer…</option>
+                      {RETAILERS.map((r) => (
+                        <option key={r} value={r}>{r}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="confirmation" className="block text-sm font-medium text-text">
+                      Order confirmation number
+                    </label>
+                    <input
+                      id="confirmation"
+                      name="confirmation"
+                      type="text"
+                      required
+                      value={form.confirmation}
+                      onChange={handleChange}
+                      placeholder="e.g. 113-4567890-1234567"
+                      className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                    />
+                    <p className="mt-1 text-xs text-text-light">
+                      Found in your order confirmation email from the retailer.
+                    </p>
                   </div>
                   {status === "error" && (
                     <p className="text-sm text-pink">
@@ -143,7 +206,7 @@ export default function PreorderPage() {
                     disabled={status === "sending"}
                     className="w-full rounded-full bg-orange px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-orange-dark disabled:opacity-60"
                   >
-                    {status === "sending" ? "Sending…" : "Send Me the Free Content"}
+                    {status === "sending" ? "Sending…" : "Claim My Free Bonus Content"}
                   </button>
                 </form>
               )}
