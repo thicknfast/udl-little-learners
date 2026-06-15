@@ -23,13 +23,40 @@ export default function BookPage() {
               className="rounded-xl shadow-xl"
             />
             <div className="mt-6 flex flex-col gap-3">
+              <p className="text-center text-xs font-semibold uppercase tracking-wide text-text-light">
+                Available at
+              </p>
               <a
                 href="https://www.amazon.com/UDL-Little-Learners-Practical-Strategies/dp/1394414668/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
               >
-                Buy on Amazon
+                Amazon
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+              >
+                Barnes &amp; Noble
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+              >
+                Bookshop.org
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+              >
+                Books-a-Million
               </a>
               <p className="text-center text-xs text-text-light">
                 Published by Jossey-Bass (Wiley)

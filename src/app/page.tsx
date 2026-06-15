@@ -71,6 +71,28 @@ export default function Home() {
         </Container>
       </section>
 
+      {/* Pre-order banner */}
+      <section className="bg-orange py-6">
+        <Container>
+          <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+            <div>
+              <p className="font-display text-lg font-extrabold text-white">
+                📚 Pre-Order Now &amp; Get Free Bonus Content
+              </p>
+              <p className="mt-0.5 text-sm text-white/85">
+                Order before December launch and we&apos;ll send you exclusive bonus materials as a thank-you.
+              </p>
+            </div>
+            <Link
+              href="/preorder"
+              className="shrink-0 rounded-full bg-white px-6 py-3 font-display font-bold text-orange shadow-md transition hover:bg-orange-dark hover:text-white"
+            >
+              Pre-Order &amp; Claim Bonus
+            </Link>
+          </div>
+        </Container>
+      </section>
+
       {/* Stats banner */}
       <section className="border-y border-border">
         <Container>
