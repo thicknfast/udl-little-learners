@@ -53,209 +53,219 @@ export default function PreorderPage() {
             Pre-Order &amp; Get Free Bonus Content
           </h1>
           <p className="mt-4 text-lg text-text-light leading-relaxed">
-            Pre-order <em>UDL for Little Learners</em> from any retailer before it launches in
-            December, then submit your order confirmation below. Jeff will send your exclusive
-            bonus content by email — no strings attached.
+            Order <em>UDL for Little Learners</em> before it launches in December and Jeff will
+            send you exclusive bonus content as a thank-you — no strings attached.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-10 md:grid-cols-2 md:items-start">
-          {/* Book cover + buy links */}
-          <div className="flex flex-col items-center gap-6 rounded-2xl border border-border bg-white p-8 shadow-sm">
+        {/* Step 1 */}
+        <div className="mt-12">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue font-display font-bold text-white">1</span>
+            <h2 className="font-display text-xl font-bold text-text">Pre-order from any retailer</h2>
+          </div>
+          <div className="flex flex-col items-center gap-6 rounded-2xl border border-border bg-white p-8 shadow-sm sm:flex-row sm:items-start">
             <Image
               src="/images/cover.png"
               alt="UDL for Little Learners book cover"
-              width={200}
-              height={265}
-              className="rounded-xl shadow-lg"
+              width={140}
+              height={185}
+              className="shrink-0 rounded-xl shadow-lg"
             />
             <div className="w-full space-y-3">
-              <p className="text-center text-xs font-semibold uppercase tracking-wide text-text-light">
-                Pre-order now at
+              <p className="text-sm text-text-light">
+                Click any retailer below to place your order. Your order confirmation email will
+                include a confirmation number — keep it handy for Step 2.
               </p>
-              <a
-                href="https://www.amazon.com/UDL-Little-Learners-Practical-Strategies/dp/1394414668/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-              >
-                Amazon
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-              >
-                Barnes &amp; Noble
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-              >
-                Bookshop.org
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-              >
-                Books-a-Million
-              </a>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <a
+                  href="https://www.amazon.com/UDL-Little-Learners-Practical-Strategies/dp/1394414668/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+                >
+                  Amazon
+                </a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+                >
+                  Barnes &amp; Noble
+                </a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+                >
+                  Bookshop.org
+                </a>
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
+                >
+                  Books-a-Million
+                </a>
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Claim form */}
-          <div className="flex flex-col gap-8">
-            <div className="rounded-2xl border border-border bg-white p-8 shadow-sm">
-              <h2 className="font-display text-xl font-bold text-text">
-                Claim Your Free Bonus Content
-              </h2>
-              <p className="mt-2 text-sm text-text-light">
-                Pre-order from any retailer, then fill out this form with your order
-                confirmation number. Jeff will send your bonus content by email before
-                launch day.
-              </p>
+        {/* Step 2 */}
+        <div className="mt-8">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange font-display font-bold text-white">2</span>
+            <h2 className="font-display text-xl font-bold text-text">Submit your order confirmation</h2>
+          </div>
+          <div className="rounded-2xl border border-border bg-white p-8 shadow-sm">
+            <p className="text-sm text-text-light">
+              Fill out the form below with your name, email, and the order confirmation number
+              from your retailer confirmation email. Make sure you have your order confirmation
+              handy before submitting.
+            </p>
 
-              {status === "success" ? (
-                <div className="mt-6 rounded-xl bg-green/10 p-5 text-center">
-                  <p className="font-display font-bold text-green">Got it — thank you!</p>
-                  <p className="mt-1 text-sm text-text-light">
-                    Jeff will send your free bonus content to the email you provided before
-                    the book launches in December.
+            {status === "success" ? (
+              <div className="mt-6 rounded-xl bg-green/10 p-5 text-center">
+                <p className="font-display font-bold text-green">Got it — thank you!</p>
+                <p className="mt-1 text-sm text-text-light">
+                  Jeff will send your free bonus content to the email you provided before
+                  the book launches in December.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-text">
+                    Your name
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    required
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Jane Smith"
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-text">
+                    Email address
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="retailer" className="block text-sm font-medium text-text">
+                    Where did you order?
+                  </label>
+                  <select
+                    id="retailer"
+                    name="retailer"
+                    required
+                    value={form.retailer}
+                    onChange={handleChange}
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  >
+                    <option value="">Select a retailer…</option>
+                    {RETAILERS.map((r) => (
+                      <option key={r} value={r}>{r}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="confirmation" className="block text-sm font-medium text-text">
+                    Order confirmation number
+                  </label>
+                  <input
+                    id="confirmation"
+                    name="confirmation"
+                    type="text"
+                    required
+                    value={form.confirmation}
+                    onChange={handleChange}
+                    placeholder="e.g. 113-4567890-1234567"
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  />
+                  <p className="mt-1 text-xs text-text-light">
+                    Found in your confirmation email from the retailer.
                   </p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-text">
-                      Your name
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="Jane Smith"
-                      className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-text">
-                      Email address
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="you@example.com"
-                      className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="retailer" className="block text-sm font-medium text-text">
-                      Where did you order?
-                    </label>
-                    <select
-                      id="retailer"
-                      name="retailer"
-                      required
-                      value={form.retailer}
-                      onChange={handleChange}
-                      className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
-                    >
-                      <option value="">Select a retailer…</option>
-                      {RETAILERS.map((r) => (
-                        <option key={r} value={r}>{r}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="confirmation" className="block text-sm font-medium text-text">
-                      Order confirmation number
-                    </label>
-                    <input
-                      id="confirmation"
-                      name="confirmation"
-                      type="text"
-                      required
-                      value={form.confirmation}
-                      onChange={handleChange}
-                      placeholder="e.g. 113-4567890-1234567"
-                      className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
-                    />
-                    <p className="mt-1 text-xs text-text-light">
-                      Found in your order confirmation email from the retailer.
-                    </p>
-                  </div>
+                <div className="sm:col-span-2">
                   {status === "error" && (
-                    <p className="text-sm text-pink">
+                    <p className="mb-3 text-sm text-pink">
                       Something went wrong — please try again or email Jeff directly.
                     </p>
                   )}
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="w-full rounded-full bg-orange px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-orange-dark disabled:opacity-60"
+                    className="w-full rounded-full bg-orange px-6 py-3 font-display font-bold text-white shadow-md transition hover:bg-orange-dark disabled:opacity-60 sm:w-auto sm:px-10"
                   >
                     {status === "sending" ? "Sending…" : "Claim My Free Bonus Content"}
                   </button>
-                </form>
-              )}
-            </div>
-
-            {/* Bulk orders */}
-            <div className="rounded-2xl border-2 border-dashed border-blue bg-blue/5 p-8">
-              <h2 className="font-display text-xl font-bold text-blue">
-                Bulk Orders
-              </h2>
-              <p className="mt-2 text-sm text-text-light">
-                Ordering for a school, district, or professional development event? Take
-                advantage of significant discounts — plus direct-to-school shipping and
-                tailored quotes for large events or districts.
-              </p>
-
-              <div className="mt-5 overflow-hidden rounded-xl border border-border">
-                <table className="w-full text-sm">
-                  <thead className="bg-blue text-white">
-                    <tr>
-                      <th className="px-4 py-2 text-left font-display font-bold">Quantity</th>
-                      <th className="px-4 py-2 text-left font-display font-bold">Discount</th>
-                      <th className="px-4 py-2 text-left font-display font-bold">Price / Copy*</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border bg-white">
-                    {BULK_TIERS.map((tier) => (
-                      <tr key={tier.range} className="hover:bg-cream transition-colors">
-                        <td className="px-4 py-2 font-medium text-text">{tier.range}</td>
-                        <td className="px-4 py-2 font-bold text-green">{tier.discount}</td>
-                        <td className="px-4 py-2 text-text">{tier.price}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p className="mt-2 text-xs text-text-light">
-                *Does not include applicable tax or shipping.
-              </p>
-
-              <a
-                href="#"
-                className="mt-5 block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-              >
-                Request a Bulk Order Quote
-              </a>
-            </div>
+                </div>
+              </form>
+            )}
           </div>
         </div>
+
+        {/* Bulk orders */}
+        <div className="mt-12 rounded-2xl border-2 border-dashed border-blue bg-blue/5 p-8">
+          <h2 className="font-display text-xl font-bold text-blue">
+            Bulk Orders
+          </h2>
+          <p className="mt-2 text-sm text-text-light">
+            Ordering for a school, district, or professional development event? Take
+            advantage of significant discounts — plus direct-to-school shipping and
+            tailored quotes for large events or districts.
+          </p>
+
+          <div className="mt-5 overflow-hidden rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead className="bg-blue text-white">
+                <tr>
+                  <th className="px-4 py-2 text-left font-display font-bold">Quantity</th>
+                  <th className="px-4 py-2 text-left font-display font-bold">Discount</th>
+                  <th className="px-4 py-2 text-left font-display font-bold">Price / Copy*</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border bg-white">
+                {BULK_TIERS.map((tier) => (
+                  <tr key={tier.range} className="hover:bg-cream transition-colors">
+                    <td className="px-4 py-2 font-medium text-text">{tier.range}</td>
+                    <td className="px-4 py-2 font-bold text-green">{tier.discount}</td>
+                    <td className="px-4 py-2 text-text">{tier.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-2 text-xs text-text-light">
+            *Does not include applicable tax or shipping.
+          </p>
+
+          <a
+            href="#"
+            className="mt-5 block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark sm:inline-block sm:px-10"
+          >
+            Request a Bulk Order Quote
+          </a>
+        </div>
+
       </Container>
     </section>
   );
