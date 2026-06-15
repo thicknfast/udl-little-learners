@@ -35,7 +35,7 @@ export default function BookPage() {
                 Amazon
               </a>
               <a
-                href="#"
+                href="https://www.barnesandnoble.com/w/udl-for-little-learners-jeff-horwitz/1149946557"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
