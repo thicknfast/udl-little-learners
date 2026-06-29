@@ -129,12 +129,17 @@ export default function PreorderPage() {
             </p>
 
             {status === "success" ? (
-              <div className="mt-6 rounded-xl bg-green/10 p-5 text-center">
-                <p className="font-display font-bold text-green">Got it — thank you!</p>
+              <div className="mt-6 rounded-xl bg-green/10 p-6 text-center">
+                <p className="font-display text-lg font-bold text-green">Got it — thank you!</p>
                 <p className="mt-1 text-sm text-text-light">
-                  Jeff will send your free bonus content to the email you provided before
-                  the book launches in December.
+                  Your bonus content is ready right now. Click below to access it.
                 </p>
+                <a
+                  href="/preorder/resources"
+                  className="mt-4 inline-block rounded-full bg-orange px-8 py-3 font-display font-bold text-white shadow-md transition hover:bg-orange-dark"
+                >
+                  Access My Bonus Content →
+                </a>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
