@@ -41,6 +41,16 @@ const RESOURCES = [
     ],
   },
   {
+    title: "Classroom Environment Audit",
+    description:
+      "A room-by-room audit tool for evaluating your physical space through a UDL lens. Covers flexible seating, sensory considerations, materials access, wall displays, and more — with reflection prompts for each area.",
+    icon: "🏫",
+    label: "Download PDF",
+    href: "/resources/classroom-environment-audit.pdf",
+    color: "orange" as const,
+    download: true,
+  },
+  {
     title: "Predicting Barriers Planning Template",
     description:
       "A planning tool for thinking proactively about barriers before a lesson or routine. Use it to anticipate where students might struggle and design supports in advance — the core UDL planning move.",
