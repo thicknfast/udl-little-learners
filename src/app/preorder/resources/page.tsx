@@ -41,6 +41,16 @@ const RESOURCES = [
     ],
   },
   {
+    title: "Learning Walk Guide",
+    description:
+      "A structured observation tool for administrators and instructional coaches to identify UDL in practice. Includes a classroom look-for framework, reflection prompts, and a follow-up conversation guide.",
+    icon: "🚶",
+    label: "Download PDF",
+    href: "/resources/learning-walk-guide.pdf",
+    color: "orange" as const,
+    download: true,
+  },
+  {
     title: "Pre-Order Bonus Folder",
     description:
       "All pre-order bonus materials in one place. Bookmark this folder — Jeff will add more content here as the launch approaches.",
