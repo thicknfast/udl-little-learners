@@ -41,6 +41,16 @@ const RESOURCES = [
     ],
   },
   {
+    title: "Quick Win Cards",
+    description:
+      "30 printable cards, each with a single, immediately actionable UDL strategy. Cut them apart, pull one a week, or use them as a team discussion starter. No planning required — just pick one and try it.",
+    icon: "⚡",
+    label: "Download PDF",
+    href: "/resources/quick-win-cards.pdf",
+    color: "orange" as const,
+    download: true,
+  },
+  {
     title: "Classroom Environment Audit",
     description:
       "A room-by-room audit tool for evaluating your physical space through a UDL lens. Covers flexible seating, sensory considerations, materials access, wall displays, and more — with reflection prompts for each area.",
