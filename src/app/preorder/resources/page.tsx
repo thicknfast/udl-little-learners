@@ -41,6 +41,16 @@ const RESOURCES = [
     ],
   },
   {
+    title: "Predicting Barriers Planning Template",
+    description:
+      "A planning tool for thinking proactively about barriers before a lesson or routine. Use it to anticipate where students might struggle and design supports in advance — the core UDL planning move.",
+    icon: "🔍",
+    label: "Download PDF",
+    href: "/resources/predicting-barriers-template.pdf",
+    color: "orange" as const,
+    download: true,
+  },
+  {
     title: "Learning Walk Guide",
     description:
       "A structured observation tool for administrators and instructional coaches to identify UDL in practice. Includes a classroom look-for framework, reflection prompts, and a follow-up conversation guide.",
