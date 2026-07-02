@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { addBeehiivSubscriber } from "@/lib/beehiiv";
 
 const FORMSPREE_URL = "https://formspree.io/f/mrevjaze";
 
@@ -24,41 +25,19 @@ interface PreorderSubmission {
 }
 
 async function addToBeehiiv(data: PreorderSubmission) {
-  const apiKey = process.env.BEEHIIV_API_KEY;
-  const rawPublicationId = process.env.BEEHIIV_PUBLICATION_ID;
-  if (!apiKey || !rawPublicationId) {
-    console.warn("Beehiiv not configured — skipping email list sync for", data.email);
-    return;
-  }
-  // Beehiiv publication IDs must be prefixed "pub_" — the dashboard doesn't
-  // always show it that way when you copy the ID, so tolerate either form.
-  const publicationId = rawPublicationId.startsWith("pub_") ? rawPublicationId : `pub_${rawPublicationId}`;
-
-  // Custom fields must already exist in the Beehiiv publication (Audience →
-  // Subscribers → Custom Fields) with these exact names, or Beehiiv rejects
-  // them — unlike Kit, it doesn't auto-create unknown fields on write.
-  const res = await fetch(`https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: data.email,
-      utm_source: "preorder-form",
-      custom_fields: [
-        { name: "Name", value: data.name },
-        { name: "Role", value: data.role },
-        { name: "Location", value: data.location },
-        { name: "School Name", value: data.schoolName },
-        { name: "School Type", value: data.schoolType },
-        { name: "Grade Level", value: data.gradeLevel },
-        { name: "How Heard", value: data.howHeard },
-        { name: "Retailer", value: data.retailer },
-      ],
-    }),
+  await addBeehiivSubscriber(data.email, {
+    utmSource: "preorder-form",
+    customFields: [
+      { name: "Name", value: data.name },
+      { name: "Role", value: data.role },
+      { name: "Location", value: data.location },
+      { name: "School Name", value: data.schoolName },
+      { name: "School Type", value: data.schoolType },
+      { name: "Grade Level", value: data.gradeLevel },
+      { name: "How Heard", value: data.howHeard },
+      { name: "Retailer", value: data.retailer },
+    ],
   });
-
-  if (!res.ok) {
-    console.error("Beehiiv: failed to add subscriber", await res.text());
-  }
 }
 
 export async function POST(request: Request) {
