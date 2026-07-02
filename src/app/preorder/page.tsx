@@ -76,13 +76,10 @@ export default function PreorderPage() {
 
     setStatus("sending");
     try {
-      const res = await fetch("https://formspree.io/f/mrevjaze", {
+      const res = await fetch("/api/preorder", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          ...form,
-          _subject: `Pre-order Bonus Claim — ${form.name}`,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
       setStatus(res.ok ? "success" : "error");
     } catch {
