@@ -1,11 +1,29 @@
 import { Container } from "@/components/Container";
+import { PREORDER_ADMIN_ROLE } from "@/lib/preorder";
 
 export const metadata = {
   title: "Pre-Order Bonus Content — UDL for Little Learners",
   robots: { index: false, follow: false },
 };
 
-const RESOURCES = [
+interface PreorderResource {
+  title: string;
+  description: string;
+  icon: string;
+  label: string;
+  href: string;
+  color: "orange" | "blue";
+  download?: boolean;
+  adminOnly?: boolean;
+  note?: string[];
+  // Plain "YYYY-MM-DD" dates, compared as strings against today — good
+  // enough for a marketing calendar, no timezone precision needed. Omit
+  // both to make a resource available the whole time.
+  availableFrom?: string;
+  availableUntil?: string;
+}
+
+const RESOURCES: PreorderResource[] = [
   {
     title: "Before You Read Self-Assessment",
     description:
@@ -25,6 +43,7 @@ const RESOURCES = [
     href: "/resources/administrators-guide.pdf",
     color: "orange" as const,
     download: true,
+    adminOnly: true,
   },
   {
     title: "Calendar Journal Template",
@@ -79,6 +98,7 @@ const RESOURCES = [
     href: "/resources/learning-walk-guide.pdf",
     color: "orange" as const,
     download: true,
+    adminOnly: true,
   },
   {
     title: "Pre-Order Bonus Folder",
@@ -91,7 +111,26 @@ const RESOURCES = [
   },
 ];
 
-export default function PreorderResourcesPage() {
+function isReleased(r: PreorderResource, today: string) {
+  return !r.availableFrom || today >= r.availableFrom;
+}
+
+function isExpired(r: PreorderResource, today: string) {
+  return !!r.availableUntil && today > r.availableUntil;
+}
+
+export default async function PreorderResourcesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ role?: string }>;
+}) {
+  const { role } = await searchParams;
+  const isAdmin = role === PREORDER_ADMIN_ROLE;
+  const today = new Date().toISOString().slice(0, 10);
+  const visibleToRole = RESOURCES.filter((r) => !r.adminOnly || isAdmin);
+  const resources = visibleToRole.filter((r) => isReleased(r, today) && !isExpired(r, today));
+  const comingSoon = visibleToRole.filter((r) => !isReleased(r, today) && !isExpired(r, today));
+
   return (
     <section className="py-12">
       <Container>
@@ -113,7 +152,7 @@ export default function PreorderResourcesPage() {
 
           {/* Resources */}
           <div className="mt-10 space-y-4">
-            {RESOURCES.map((r) => (
+            {resources.map((r) => (
               <div key={r.href} className="rounded-2xl border border-border bg-white shadow-sm">
                 <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center">
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-cream text-3xl">
@@ -152,6 +191,37 @@ export default function PreorderResourcesPage() {
               </div>
             ))}
           </div>
+
+          {/* Coming soon teasers */}
+          {comingSoon.length > 0 && (
+            <div className="mt-10">
+              <h2 className="font-display text-lg font-bold text-text">More on the way</h2>
+              <p className="mt-1 text-sm text-text-light">
+                Bookmark this page — these unlock automatically, no need to resubmit.
+              </p>
+              <div className="mt-4 space-y-3">
+                {comingSoon.map((r) => (
+                  <div
+                    key={r.href}
+                    className="flex items-center gap-4 rounded-2xl border border-dashed border-border bg-cream/60 p-4"
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-2xl opacity-60">
+                      {r.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-display text-base font-bold text-text-light">{r.title}</h3>
+                      <p className="text-xs text-text-light">
+                        Unlocks {new Date(r.availableFrom + "T00:00:00").toLocaleDateString(undefined, {
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Footer note */}
           <p className="mt-8 text-center text-sm text-text-light">

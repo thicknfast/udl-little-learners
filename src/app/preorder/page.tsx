@@ -3,6 +3,12 @@
 import { useState, FormEvent } from "react";
 import { Container } from "@/components/Container";
 import Image from "next/image";
+import {
+  PREORDER_ROLES,
+  PREORDER_SCHOOL_TYPES,
+  PREORDER_GRADE_LEVELS,
+  PREORDER_HOW_HEARD_OPTIONS,
+} from "@/lib/preorder";
 
 const BULK_TIERS = [
   { range: "1–24",    discount: "25%", price: "$24.00" },
@@ -15,16 +21,59 @@ const BULK_TIERS = [
 
 const RETAILERS = ["Amazon", "Barnes & Noble", "Bookshop.org", "Books-a-Million", "Other"];
 
+// Formspree's own honeypot convention: a field named "_gotcha" is silently
+// discarded server-side (still returns success) when filled by a bot.
+const HONEYPOT_FIELD = "_gotcha";
+
+function isLikelyRealConfirmation(value: string) {
+  const trimmed = value.trim();
+  // Retailer confirmation numbers vary in format, but every one we've seen
+  // has both letters/digits and some length — this just filters out empty
+  // or throwaway junk like "n/a" or "x". It can't verify the order is real.
+  return trimmed.length >= 5 && /[0-9]/.test(trimmed);
+}
+
 export default function PreorderPage() {
-  const [form, setForm] = useState({ name: "", email: "", retailer: "", confirmation: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    retailer: "",
+    confirmation: "",
+    role: "",
+    location: "",
+    schoolName: "",
+    schoolType: "",
+    gradeLevel: "",
+    howHeard: "",
+    emailOptIn: false,
+  });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [validationError, setValidationError] = useState("");
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, type } = e.target;
+    const value = type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value;
+    setForm((prev) => ({ ...prev, [name]: value }));
   }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
+    const honeypot = (e.target as HTMLFormElement)[HONEYPOT_FIELD] as HTMLInputElement | undefined;
+    if (honeypot?.value) {
+      // Bot filled the hidden field — pretend success without submitting.
+      setStatus("success");
+      return;
+    }
+
+    if (!isLikelyRealConfirmation(form.confirmation)) {
+      setValidationError(
+        "That doesn't look like a real confirmation number — please double check your order confirmation email."
+      );
+      return;
+    }
+    setValidationError("");
+
     setStatus("sending");
     try {
       const res = await fetch("https://formspree.io/f/mrevjaze", {
@@ -135,7 +184,7 @@ export default function PreorderPage() {
                   Your bonus content is ready right now. Click below to access it.
                 </p>
                 <a
-                  href="/preorder/resources"
+                  href={`/preorder/resources?role=${encodeURIComponent(form.role)}`}
                   className="mt-4 inline-block rounded-full bg-orange px-8 py-3 font-display font-bold text-white shadow-md transition hover:bg-orange-dark"
                 >
                   Access My Bonus Content →
@@ -143,6 +192,15 @@ export default function PreorderPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
+                {/* Honeypot — hidden from real users, bots tend to fill every field */}
+                <input
+                  type="text"
+                  name={HONEYPOT_FIELD}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                />
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-text">
                     Your name
@@ -200,6 +258,7 @@ export default function PreorderPage() {
                     name="confirmation"
                     type="text"
                     required
+                    minLength={5}
                     value={form.confirmation}
                     onChange={handleChange}
                     placeholder="e.g. 113-4567890-1234567"
@@ -209,7 +268,121 @@ export default function PreorderPage() {
                     Found in your confirmation email from the retailer.
                   </p>
                 </div>
+                <div>
+                  <label htmlFor="role" className="block text-sm font-medium text-text">
+                    Your role
+                  </label>
+                  <select
+                    id="role"
+                    name="role"
+                    required
+                    value={form.role}
+                    onChange={handleChange}
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  >
+                    <option value="">Select your role…</option>
+                    {PREORDER_ROLES.map((r) => (
+                      <option key={r} value={r}>{r}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="location" className="block text-sm font-medium text-text">
+                    Location (city, state/province)
+                  </label>
+                  <input
+                    id="location"
+                    name="location"
+                    type="text"
+                    required
+                    value={form.location}
+                    onChange={handleChange}
+                    placeholder="e.g. Austin, TX"
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="schoolName" className="block text-sm font-medium text-text">
+                    School / organization (optional)
+                  </label>
+                  <input
+                    id="schoolName"
+                    name="schoolName"
+                    type="text"
+                    value={form.schoolName}
+                    onChange={handleChange}
+                    placeholder="e.g. Maple Street Elementary"
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="schoolType" className="block text-sm font-medium text-text">
+                    School type (optional)
+                  </label>
+                  <select
+                    id="schoolType"
+                    name="schoolType"
+                    value={form.schoolType}
+                    onChange={handleChange}
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  >
+                    <option value="">Select…</option>
+                    {PREORDER_SCHOOL_TYPES.map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="gradeLevel" className="block text-sm font-medium text-text">
+                    Grade level(s) you work with (optional)
+                  </label>
+                  <select
+                    id="gradeLevel"
+                    name="gradeLevel"
+                    value={form.gradeLevel}
+                    onChange={handleChange}
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  >
+                    <option value="">Select…</option>
+                    {PREORDER_GRADE_LEVELS.map((g) => (
+                      <option key={g} value={g}>{g}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="howHeard" className="block text-sm font-medium text-text">
+                    How did you hear about the book? (optional)
+                  </label>
+                  <select
+                    id="howHeard"
+                    name="howHeard"
+                    value={form.howHeard}
+                    onChange={handleChange}
+                    className="mt-1 w-full rounded-lg border border-border px-4 py-3 text-sm text-text outline-none focus:border-blue focus:ring-2 focus:ring-blue/20"
+                  >
+                    <option value="">Select…</option>
+                    {PREORDER_HOW_HEARD_OPTIONS.map((h) => (
+                      <option key={h} value={h}>{h}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex items-start gap-2 sm:col-span-2">
+                  <input
+                    id="emailOptIn"
+                    name="emailOptIn"
+                    type="checkbox"
+                    checked={form.emailOptIn}
+                    onChange={handleChange}
+                    className="mt-1 h-4 w-4 shrink-0 rounded border-border text-orange focus:ring-orange/20"
+                  />
+                  <label htmlFor="emailOptIn" className="text-sm text-text">
+                    Yes, send me occasional updates about UDL resources and Jeff&apos;s future books.
+                  </label>
+                </div>
                 <div className="sm:col-span-2">
+                  {validationError && (
+                    <p className="mb-3 text-sm text-pink">{validationError}</p>
+                  )}
                   {status === "error" && (
                     <p className="mb-3 text-sm text-pink">
                       Something went wrong — please try again or email Jeff directly.
