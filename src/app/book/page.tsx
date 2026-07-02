@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/Container";
+import { ComingSoonButton } from "@/components/ComingSoonButton";
 import { BOOK_PARTS } from "@/lib/types";
 import type { Metadata } from "next";
 
@@ -42,22 +43,8 @@ export default function BookPage() {
               >
                 Barnes &amp; Noble
               </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-              >
-                Bookshop.org
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-              >
-                Books-a-Million
-              </a>
+              <ComingSoonButton label="Bookshop.org" />
+              <ComingSoonButton label="Books-a-Million" />
               <p className="text-center text-xs text-text-light">
                 Published by Jossey-Bass (Wiley)
               </p>

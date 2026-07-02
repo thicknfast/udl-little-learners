@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import { Container } from "@/components/Container";
 import Image from "next/image";
+import { ComingSoonButton } from "@/components/ComingSoonButton";
 import {
   PREORDER_ROLES,
   PREORDER_SCHOOL_TYPES,
@@ -140,22 +141,8 @@ export default function PreorderPage() {
                 >
                   Barnes &amp; Noble
                 </a>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-                >
-                  Bookshop.org
-                </a>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark"
-                >
-                  Books-a-Million
-                </a>
+                <ComingSoonButton label="Bookshop.org" />
+                <ComingSoonButton label="Books-a-Million" />
               </div>
             </div>
           </div>
