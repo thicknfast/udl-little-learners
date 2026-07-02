@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 const FORMSPREE_URL = "https://formspree.io/f/mrevjaze";
-const KIT_API_BASE = "https://api.kit.com/v4";
 
 function isLikelyRealConfirmation(value: unknown) {
   const trimmed = typeof value === "string" ? value.trim() : "";
@@ -24,50 +23,38 @@ interface PreorderSubmission {
   emailOptIn: boolean;
 }
 
-async function addToKit(data: PreorderSubmission) {
-  const apiKey = process.env.KIT_API_KEY;
-  if (!apiKey) {
-    console.warn("KIT_API_KEY not set — skipping Kit sync for", data.email);
+async function addToBeehiiv(data: PreorderSubmission) {
+  const apiKey = process.env.BEEHIIV_API_KEY;
+  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
+  if (!apiKey || !publicationId) {
+    console.warn("Beehiiv not configured — skipping email list sync for", data.email);
     return;
   }
 
-  const subscriberRes = await fetch(`${KIT_API_BASE}/subscribers`, {
+  // Custom fields must already exist in the Beehiiv publication (Audience →
+  // Subscribers → Custom Fields) with these exact names, or Beehiiv rejects
+  // them — unlike Kit, it doesn't auto-create unknown fields on write.
+  const res = await fetch(`https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`, {
     method: "POST",
-    headers: { "X-Kit-Api-Key": apiKey, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
-      email_address: data.email,
-      first_name: data.name,
-      fields: {
-        role: data.role,
-        location: data.location,
-        school_name: data.schoolName,
-        school_type: data.schoolType,
-        grade_level: data.gradeLevel,
-        how_heard: data.howHeard,
-        retailer: data.retailer,
-      },
+      email: data.email,
+      utm_source: "preorder-form",
+      custom_fields: [
+        { name: "Name", value: data.name },
+        { name: "Role", value: data.role },
+        { name: "Location", value: data.location },
+        { name: "School Name", value: data.schoolName },
+        { name: "School Type", value: data.schoolType },
+        { name: "Grade Level", value: data.gradeLevel },
+        { name: "How Heard", value: data.howHeard },
+        { name: "Retailer", value: data.retailer },
+      ],
     }),
   });
 
-  if (!subscriberRes.ok) {
-    console.error("Kit: failed to create/update subscriber", await subscriberRes.text());
-    return;
-  }
-
-  const tagId = process.env.KIT_PREORDER_TAG_ID;
-  if (!tagId) {
-    console.warn("KIT_PREORDER_TAG_ID not set — subscriber added but not tagged");
-    return;
-  }
-
-  const tagRes = await fetch(`${KIT_API_BASE}/tags/${tagId}/subscribers`, {
-    method: "POST",
-    headers: { "X-Kit-Api-Key": apiKey, "Content-Type": "application/json" },
-    body: JSON.stringify({ email_address: data.email }),
-  });
-
-  if (!tagRes.ok) {
-    console.error("Kit: failed to tag subscriber", await tagRes.text());
+  if (!res.ok) {
+    console.error("Beehiiv: failed to add subscriber", await res.text());
   }
 }
 
@@ -95,10 +82,10 @@ export async function POST(request: Request) {
 
   if (body.emailOptIn) {
     try {
-      await addToKit(body as PreorderSubmission);
+      await addToBeehiiv(body as PreorderSubmission);
     } catch (err) {
       // Don't fail the whole submission just because the email-list sync failed.
-      console.error("Kit sync threw", err);
+      console.error("Beehiiv sync threw", err);
     }
   }
 
