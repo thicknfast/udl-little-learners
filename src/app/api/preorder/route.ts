@@ -25,11 +25,14 @@ interface PreorderSubmission {
 
 async function addToBeehiiv(data: PreorderSubmission) {
   const apiKey = process.env.BEEHIIV_API_KEY;
-  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
-  if (!apiKey || !publicationId) {
+  const rawPublicationId = process.env.BEEHIIV_PUBLICATION_ID;
+  if (!apiKey || !rawPublicationId) {
     console.warn("Beehiiv not configured — skipping email list sync for", data.email);
     return;
   }
+  // Beehiiv publication IDs must be prefixed "pub_" — the dashboard doesn't
+  // always show it that way when you copy the ID, so tolerate either form.
+  const publicationId = rawPublicationId.startsWith("pub_") ? rawPublicationId : `pub_${rawPublicationId}`;
 
   // Custom fields must already exist in the Beehiiv publication (Audience →
   // Subscribers → Custom Fields) with these exact names, or Beehiiv rejects
