@@ -9,16 +9,8 @@ import {
   PREORDER_SCHOOL_TYPES,
   PREORDER_GRADE_LEVELS,
   PREORDER_HOW_HEARD_OPTIONS,
+  BULK_ORDER_TIERS,
 } from "@/lib/preorder";
-
-const BULK_TIERS = [
-  { range: "1–24",    discount: "25%", price: "$24.00" },
-  { range: "25–49",   discount: "30%", price: "$22.40" },
-  { range: "50–99",   discount: "35%", price: "$20.80" },
-  { range: "100–249", discount: "40%", price: "$19.20" },
-  { range: "250–499", discount: "45%", price: "$17.60" },
-  { range: "500+",    discount: "50%", price: "$16.00" },
-];
 
 const RETAILERS = ["Amazon", "Barnes & Noble", "Bookshop.org", "Books-a-Million", "Other"];
 
@@ -406,7 +398,7 @@ export default function PreorderPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border bg-white">
-                {BULK_TIERS.map((tier) => (
+                {BULK_ORDER_TIERS.map((tier) => (
                   <tr key={tier.range} className="hover:bg-cream transition-colors">
                     <td className="px-4 py-2 font-medium text-text">{tier.range}</td>
                     <td className="px-4 py-2 font-bold text-green">{tier.discount}</td>
