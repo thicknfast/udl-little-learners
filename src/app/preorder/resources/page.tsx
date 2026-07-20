@@ -101,6 +101,16 @@ const RESOURCES: PreorderResource[] = [
     adminOnly: true,
   },
   {
+    title: "My Calm Corner Kit",
+    description:
+      "A printable emotional literacy toolkit for your classroom's calm corner. Includes a feeling-identification poster, cut-apart feeling cards, calming strategy cards, a step-by-step calming down worksheet, a welcome sign, and blank cards to add your own.",
+    icon: "🧘",
+    label: "Download PDF",
+    href: "/resources/calm-corner-kit.pdf",
+    color: "orange" as const,
+    download: true,
+  },
+  {
     title: "Pre-Order Bonus Folder",
     description:
       "All pre-order bonus materials in one place. Bookmark this folder — Jeff will add more content here as the launch approaches.",
