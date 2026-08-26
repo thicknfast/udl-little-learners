@@ -413,7 +413,7 @@ export default function PreorderPage() {
           </p>
 
           <a
-            href="#"
+            href="/preorder/bulk-quote"
             className="mt-5 block rounded-full bg-blue px-6 py-3 text-center font-display font-bold text-white shadow-md transition hover:bg-blue-dark sm:inline-block sm:px-10"
           >
             Request a Bulk Order Quote
