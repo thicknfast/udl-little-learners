@@ -92,8 +92,9 @@ export default function PreorderPage() {
             Pre-Order &amp; Get Free Bonus Content
           </h1>
           <p className="mt-4 text-lg text-text-light leading-relaxed">
-            Order <em>UDL for Little Learners</em> before it launches in December and Jeff will
-            send you exclusive bonus content as a thank-you — no strings attached.
+            Order <em>UDL for Little Learners</em>{" "}
+            before it launches in December and Jeff will send you exclusive bonus content as a
+            thank-you — no strings attached.
           </p>
         </div>
 

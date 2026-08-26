@@ -63,8 +63,9 @@ export default function BulkQuotePage() {
             Request a Bulk Order Quote
           </h1>
           <p className="mt-4 text-lg text-text-light leading-relaxed">
-            Ordering <em>UDL for Little Learners</em> for a school, district, or PD event? Tell
-            Jeff a bit about your order and he&apos;ll follow up with a tailored quote.
+            Ordering <em>UDL for Little Learners</em>{" "}
+            for a school, district, or PD event? Tell Jeff a bit about your order and
+            he&apos;ll follow up with a tailored quote.
           </p>
         </div>
 
