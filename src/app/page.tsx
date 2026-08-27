@@ -5,6 +5,7 @@ import path from "path";
 import matter from "gray-matter";
 import { Container } from "@/components/Container";
 import { DiscussionGuideBanner } from "@/components/DiscussionGuideCallout";
+import { QuoteCarousel } from "@/components/QuoteCarousel";
 import { getAllResources } from "@/lib/resources";
 
 function getHomeContent() {
@@ -13,12 +14,22 @@ function getHomeContent() {
   return matter(raw).data as {
     heroSubtitle: string;
     heroDescription: string;
+    forewordAuthor: string;
+    forewordAuthorTitle: string;
+    forewordQuotes: string[];
     testimonials: { quote: string; author: string; title: string }[];
   };
 }
 
 export default function Home() {
-  const { heroSubtitle, heroDescription, testimonials } = getHomeContent();
+  const {
+    heroSubtitle,
+    heroDescription,
+    forewordAuthor,
+    forewordAuthorTitle,
+    forewordQuotes,
+    testimonials,
+  } = getHomeContent();
   const resourceCount = getAllResources().length;
 
   return (
@@ -70,6 +81,19 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      {/* Foreword quote carousel */}
+      {forewordQuotes?.length > 0 && (
+        <section className="border-y border-border bg-white/60 py-14">
+          <Container>
+            <QuoteCarousel
+              quotes={forewordQuotes}
+              author={forewordAuthor}
+              authorTitle={forewordAuthorTitle}
+            />
+          </Container>
+        </section>
+      )}
 
       {/* Pre-order banner */}
       <section className="bg-orange py-6">
