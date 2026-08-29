@@ -158,7 +158,9 @@ export default function PreorderPage() {
               <div className="mt-6 rounded-xl bg-green/10 p-6 text-center">
                 <p className="font-display text-lg font-bold text-green">Got it — thank you!</p>
                 <p className="mt-1 text-sm text-text-light">
-                  Your bonus content is ready right now. Click below to access it.
+                  Your bonus content is ready right now — click below to access it. And this
+                  isn&apos;t everything: more resources will unlock automatically between now and
+                  launch, so bookmark the page and stay tuned.
                 </p>
                 <a
                   href={`/preorder/resources?role=${encodeURIComponent(form.role)}`}
