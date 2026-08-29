@@ -53,6 +53,7 @@ const RESOURCES: PreorderResource[] = [
     label: "Open in Google Slides",
     href: "https://docs.google.com/presentation/d/1FzMUmJSBEayMod8XVZiEYQNGMTko7VnT/edit?usp=drive_link&ouid=109978945231253701941&rtpof=true&sd=true",
     color: "blue" as const,
+    availableFrom: "2026-11-21",
     note: [
       "Calendar time can have a participation problem. One student is called up to the board, and the others are watching — or not watching. It looks like a group activity, but most of the learning is happening for one kid at a time. One of the big ideas in the book is that UDL works best when it's built into your planning before kids walk through the door. That's where this calendar journal comes in — it puts a pencil in every hand.",
       "The template has two versions. The Scaffolded Version gives students visual supports — they circle the day of the week from a list, choose from weather icons, and fill in guided sections for date, patterns, and the Number of the Day. The Open-Ended Version uses the exact same structure but opens up the response — students write the day name, draw or describe the weather in their own words, and have more blank space to show what they know. Same page, same routine, different entry points — that's the whole UDL idea: same learning target, multiple ways to access it.",
@@ -78,6 +79,7 @@ const RESOURCES: PreorderResource[] = [
     href: "/resources/classroom-environment-audit.pdf",
     color: "orange" as const,
     download: true,
+    availableFrom: "2026-09-26",
   },
   {
     title: "Predicting Barriers Planning Template",
@@ -88,6 +90,7 @@ const RESOURCES: PreorderResource[] = [
     href: "/resources/predicting-barriers-template.pdf",
     color: "orange" as const,
     download: true,
+    availableFrom: "2026-10-24",
   },
   {
     title: "Learning Walk Guide",
@@ -109,6 +112,7 @@ const RESOURCES: PreorderResource[] = [
     href: "/resources/calm-corner-kit.pdf",
     color: "orange" as const,
     download: true,
+    availableFrom: "2026-12-15",
   },
   {
     title: "Pre-Order Bonus Folder",
