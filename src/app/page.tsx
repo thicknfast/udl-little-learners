@@ -82,19 +82,6 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Foreword quote carousel */}
-      {forewordQuotes?.length > 0 && (
-        <section className="border-y border-border bg-white/60 py-14">
-          <Container>
-            <QuoteCarousel
-              quotes={forewordQuotes}
-              author={forewordAuthor}
-              authorTitle={forewordAuthorTitle}
-            />
-          </Container>
-        </section>
-      )}
-
       {/* Pre-order banner */}
       <section className="bg-orange py-6">
         <Container>
@@ -116,6 +103,19 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      {/* Foreword quote carousel */}
+      {forewordQuotes?.length > 0 && (
+        <section className="border-y border-border bg-white/60 py-14">
+          <Container>
+            <QuoteCarousel
+              quotes={forewordQuotes}
+              author={forewordAuthor}
+              authorTitle={forewordAuthorTitle}
+            />
+          </Container>
+        </section>
+      )}
 
       {/* Stats banner */}
       <section className="border-y border-border">
