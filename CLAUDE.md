@@ -60,7 +60,7 @@ udl-little-learners/
 │       ├── ch07-emotional-literacy/  # Chapter 7: Emotional Literacy
 │       ├── ch08-centers/       # Chapter 8: Centers
 │       ├── ch10-morning-meeting/     # Chapter 10: Morning Meeting
-│       ├── ch12-reading-phonics/     # Chapter 12: Reading, Phonics and Literacy
+│       ├── ch12-reading-phonics/     # Chapter 12: Reading, Phonics, and Literacy
 │       ├── ch13-writing/       # Chapter 13: Writing
 │       ├── ch15-math/          # Chapter 15: Math
 │       ├── ch17-closing-circle/      # Chapter 17: Closing Circle and Dismissal
@@ -304,7 +304,7 @@ Playful, warm, early-childhood classroom feel. Rounded corners on cards/buttons,
 - Developmental Milestone Chart (Responsive Classroom PDF)
 - Choice Greeting Routine (Instagram reel)
 
-### Chapter 12: Reading, Phonics and Literacy (5)
+### Chapter 12: Reading, Phonics, and Literacy (5)
 - Sample 30-Minute Phonics Block (PDF)
 - UFLI-Aligned Center Structure (Instagram)
 - Student Data Tracker (Google Doc)
