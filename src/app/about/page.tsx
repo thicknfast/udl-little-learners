@@ -43,7 +43,9 @@ export default function About() {
                 Jeff Horwitz is an educator with more than two decades of experience and the author
                 of <em>UDL for Little Learners</em> (Wiley/Jossey-Bass, December 2026). He currently
                 works for <strong className="text-text">Novak Education</strong>, where he consults
-                for and with schools around the world.
+                for and with schools around the world. He also leads{" "}
+                <strong className="text-text">Horwitz Consulting Group</strong>, his own practice
+                supporting schools and early childhood programs.
               </p>
               <p>
                 Before consulting, Jeff taught kindergarten through third grade in public and private
