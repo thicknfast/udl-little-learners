@@ -1,8 +1,8 @@
 import { Container } from "@/components/Container";
-import { PREORDER_ADMIN_ROLE } from "@/lib/preorder";
+import { PREORDER_ADMIN_ROLE, isBookLaunched } from "@/lib/preorder";
 
 export const metadata = {
-  title: "Pre-Order Bonus Content — UDL for Little Learners",
+  title: "Bonus Content",
   robots: { index: false, follow: false },
 };
 
@@ -140,6 +140,7 @@ export default async function PreorderResourcesPage({
 }) {
   const { role } = await searchParams;
   const isAdmin = role === PREORDER_ADMIN_ROLE;
+  const launched = isBookLaunched();
   const today = new Date().toISOString().slice(0, 10);
   const visibleToRole = RESOURCES.filter((r) => !r.adminOnly || isAdmin);
   const resources = visibleToRole.filter((r) => isReleased(r, today) && !isExpired(r, today));
@@ -152,13 +153,13 @@ export default async function PreorderResourcesPage({
           {/* Header */}
           <div className="text-center">
             <span className="inline-block rounded-full bg-green/15 px-4 py-1 text-sm font-bold text-green">
-              Exclusive for Pre-Orders
+              {launched ? "Reader Bonus" : "Exclusive for Pre-Orders"}
             </span>
             <h1 className="mt-4 font-display text-3xl font-extrabold text-blue sm:text-4xl">
               Your Free Bonus Content
             </h1>
             <p className="mt-4 text-lg text-text-light leading-relaxed">
-              Thank you for pre-ordering <em>UDL for Little Learners</em>! These resources
+              Thank you for {launched ? "reading" : "pre-ordering"} <em>UDL for Little Learners</em>! These resources
               are just for you. Bookmark this page or the Google Drive folder so you can
               come back anytime.
             </p>

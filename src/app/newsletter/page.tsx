@@ -122,7 +122,7 @@ export default function NewsletterPage() {
         </div>
 
         <p className="mx-auto mt-6 max-w-md text-center text-sm text-text-light">
-          Already pre-ordered? <a href="/preorder" className="text-blue underline hover:text-blue-dark">Claim your free bonus content here</a> instead.
+          Already ordered the book? <a href="/preorder" className="text-blue underline hover:text-blue-dark">Claim your free bonus content here</a> instead.
         </p>
       </Container>
     </section>

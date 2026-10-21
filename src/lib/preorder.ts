@@ -42,3 +42,13 @@ export const BULK_ORDER_TIERS = [
   { range: "250–499", discount: "45%", price: "$17.60" },
   { range: "500+", discount: "50%", price: "$16.00" },
 ];
+
+// Launch day. Before it, the site talks about pre-ordering; on and after it,
+// the same pages say the book is out and the bonus becomes a reader bonus.
+// Compared in Central time so the switch happens at midnight for Jeff.
+export const BOOK_LAUNCH_DATE = "2026-12-15";
+
+export function isBookLaunched(now = new Date()) {
+  const today = now.toLocaleDateString("en-CA", { timeZone: "America/Chicago" });
+  return today >= BOOK_LAUNCH_DATE;
+}
