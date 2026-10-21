@@ -48,10 +48,10 @@ const RESOURCES: PreorderResource[] = [
   {
     title: "Calendar Journal Template",
     description:
-      "A fully editable calendar journal you can customize for your classroom. Open in Google Slides and make it your own.",
+      "A fully editable calendar journal you can customize for your classroom. Make your own copy in Google Slides and tailor it to your students.",
     icon: "📅",
-    label: "Open in Google Slides",
-    href: "https://docs.google.com/presentation/d/1FzMUmJSBEayMod8XVZiEYQNGMTko7VnT/edit?usp=drive_link&ouid=109978945231253701941&rtpof=true&sd=true",
+    label: "Make a Copy in Google Slides",
+    href: "https://docs.google.com/presentation/d/1FzMUmJSBEayMod8XVZiEYQNGMTko7VnT/copy",
     color: "blue" as const,
     availableFrom: "2026-11-21",
     note: [
