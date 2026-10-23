@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { addBeehiivSubscriber } from "@/lib/beehiiv";
+import { EVENT_SOURCES } from "@/lib/events";
 
 function isLikelyRealEmail(value: unknown) {
   const trimmed = typeof value === "string" ? value.trim() : "";
@@ -24,7 +25,7 @@ export async function POST(request: Request) {
   // the only place this signup is recorded, so a sync failure has to be
   // reported back to the user instead of silently swallowed.
   const synced = await addBeehiivSubscriber(body.email.trim(), {
-    utmSource: "newsletter-signup",
+    utmSource: (typeof body.from === "string" && EVENT_SOURCES[body.from]) || "newsletter-signup",
     customFields: name ? [{ name: "Name", value: name }] : undefined,
   });
 

@@ -46,6 +46,17 @@ const RESOURCES: PreorderResource[] = [
     adminOnly: true,
   },
   {
+    title: "Planning for Play: A UDL Toolkit",
+    description:
+      "Eight printable pages on play and UDL: a one-page framework, a worked example, a barriers checklist, a play center planner, adult stances and language, a look-fors observation tool, and a family handout.",
+    icon: "🧸",
+    label: "Download PDF",
+    href: "/resources/play-toolkit.pdf",
+    color: "orange" as const,
+    download: true,
+    availableFrom: "2026-11-07",
+  },
+  {
     title: "Calendar Journal Template",
     description:
       "A fully editable calendar journal you can customize for your classroom. Make your own copy in Google Slides and tailor it to your students.",
@@ -144,7 +155,9 @@ export default async function PreorderResourcesPage({
   const today = new Date().toISOString().slice(0, 10);
   const visibleToRole = RESOURCES.filter((r) => !r.adminOnly || isAdmin);
   const resources = visibleToRole.filter((r) => isReleased(r, today) && !isExpired(r, today));
-  const comingSoon = visibleToRole.filter((r) => !isReleased(r, today) && !isExpired(r, today));
+  const comingSoon = visibleToRole
+    .filter((r) => !isReleased(r, today) && !isExpired(r, today))
+    .sort((a, b) => (a.availableFrom ?? "").localeCompare(b.availableFrom ?? ""));
 
   return (
     <section className="py-12">

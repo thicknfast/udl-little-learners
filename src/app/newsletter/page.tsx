@@ -29,7 +29,8 @@ export default function NewsletterPage() {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        // ?from= tags signups from a workshop link (see src/lib/events.ts)
+        body: JSON.stringify({ ...form, from: new URLSearchParams(window.location.search).get("from") }),
       });
       setStatus(res.ok ? "success" : "error");
     } catch {
