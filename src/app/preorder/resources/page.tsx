@@ -62,7 +62,7 @@ const RESOURCES: PreorderResource[] = [
       "A fully editable calendar journal you can customize for your classroom. Make your own copy in Google Slides and tailor it to your students.",
     icon: "📅",
     label: "Make a Copy in Google Slides",
-    href: "https://docs.google.com/presentation/d/1FzMUmJSBEayMod8XVZiEYQNGMTko7VnT/copy",
+    href: "https://docs.google.com/presentation/d/1hsqh72dIRl9su_qu-mmfBnVwctOH5kMH/copy",
     color: "blue" as const,
     availableFrom: "2026-11-21",
     note: [
