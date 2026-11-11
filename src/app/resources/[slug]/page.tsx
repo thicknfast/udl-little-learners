@@ -2,11 +2,15 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { MdxContent } from "@/components/MdxContent";
+import { ResourceGate } from "@/components/ResourceGate";
 import { ResourceCard } from "@/components/ResourceCard";
 import { PhotoSlideshow } from "@/components/PhotoSlideshow";
 import { getAllResources, getResourceBySlug } from "@/lib/resources";
 import { RESOURCE_TYPE_LABELS } from "@/lib/types";
 import type { Metadata } from "next";
+
+// Re-render hourly so date-gated resources appear on launch day without a redeploy.
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return getAllResources().map((r) => ({ slug: r.slug }));
@@ -87,8 +91,17 @@ export default async function ResourceDetail({
           <p className="mt-2 text-lg text-text-light">{resource.description}</p>
         </div>
 
+        {/* Gated resources: form first, then the buttons */}
+        {resource.gated && (
+          <ResourceGate
+            title={resource.title}
+            downloadFile={resource.downloadFile}
+            externalUrl={resource.externalUrl}
+          />
+        )}
+
         {/* Download button */}
-        {resource.downloadFile && (
+        {!resource.gated && resource.downloadFile && (
           <a
             href={resource.downloadFile}
             download
@@ -112,7 +125,7 @@ export default async function ResourceDetail({
         )}
 
         {/* External resource link */}
-        {resource.externalUrl && (() => {
+        {!resource.gated && resource.externalUrl && (() => {
           const isDocx = resource.externalUrl.endsWith('.docx');
           return (
             <a

@@ -21,6 +21,12 @@ export interface ResourceFrontmatter {
   order: number;
   featured?: boolean;
   photos?: string[];
+  // "YYYY-MM-DD" (Central time). Hidden from the hub until this date —
+  // used to move the pre-order bonuses onto the hub on launch day.
+  availableFrom?: string;
+  // Visitors fill out a short form (name, role, email, newsletter choice)
+  // before the download/open buttons appear.
+  gated?: boolean;
 }
 
 export interface Resource extends ResourceFrontmatter {

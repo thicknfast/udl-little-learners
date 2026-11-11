@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Container } from "@/components/Container";
 import { ResourceCard } from "@/components/ResourceCard";
 import { DiscussionGuideCallout } from "@/components/DiscussionGuideCallout";
+import { PlayToolkitCallout } from "@/components/PlayToolkitCallout";
 import {
   Resource,
   ResourceType,
@@ -64,6 +65,13 @@ export function ResourcesClient({ resources }: { resources: Resource[] }) {
         <div className="mt-8">
           <DiscussionGuideCallout />
         </div>
+
+        {/* Play toolkit spotlight — appears once the toolkit is live on the hub (launch day) */}
+        {resources.some((r) => r.slug === "play-toolkit") && (
+          <div className="mt-6">
+            <PlayToolkitCallout />
+          </div>
+        )}
 
         {/* Chapter view */}
         {view === "chapter" && (

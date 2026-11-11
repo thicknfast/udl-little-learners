@@ -48,7 +48,11 @@ export const BULK_ORDER_TIERS = [
 // Compared in Central time so the switch happens at midnight for Jeff.
 export const BOOK_LAUNCH_DATE = "2026-12-15";
 
+// Today's date as "YYYY-MM-DD" in Central time.
+export function todayCentral(now = new Date()) {
+  return now.toLocaleDateString("en-CA", { timeZone: "America/Chicago" });
+}
+
 export function isBookLaunched(now = new Date()) {
-  const today = now.toLocaleDateString("en-CA", { timeZone: "America/Chicago" });
-  return today >= BOOK_LAUNCH_DATE;
+  return todayCentral(now) >= BOOK_LAUNCH_DATE;
 }

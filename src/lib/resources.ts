@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { Resource, ResourceFrontmatter } from "./types";
+import { todayCentral } from "./preorder";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "resources");
 
@@ -21,12 +22,14 @@ function getResourceFiles(dir: string = CONTENT_DIR): string[] {
 
 export function getAllResources(): Resource[] {
   const files = getResourceFiles();
+  const today = todayCentral();
   return files
     .map((filePath) => {
       const raw = fs.readFileSync(filePath, "utf-8");
       const { data, content } = matter(raw);
       return { ...(data as ResourceFrontmatter), content };
     })
+    .filter((r) => !r.availableFrom || today >= r.availableFrom)
     .sort((a, b) => {
       // Featured items first
       if (a.featured && !b.featured) return -1;
