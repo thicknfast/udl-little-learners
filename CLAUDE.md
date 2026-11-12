@@ -82,7 +82,6 @@ udl-little-learners/
 │   │   ├── centers-resources.pdf
 │   │   ├── task-cards.pdf
 │   │   ├── engagement-games.pdf
-│   │   ├── sample-phonics-block.pdf
 │   │   ├── launch-explore-discuss.pdf
 │   │   └── daily-transition-map.pdf
 │   ├── qr-code.svg             # QR code → /resources (for print in book)
@@ -304,8 +303,7 @@ Playful, warm, early-childhood classroom feel. Rounded corners on cards/buttons,
 - Developmental Milestone Chart (Responsive Classroom PDF)
 - Choice Greeting Routine (Instagram reel)
 
-### Chapter 12: Reading, Phonics, and Literacy (5)
-- Sample 30-Minute Phonics Block (PDF)
+### Chapter 12: Reading, Phonics, and Literacy (4)
 - UFLI-Aligned Center Structure (Instagram)
 - Student Data Tracker (Google Doc)
 - Movement-Based Literacy Centers (Instagram reel)
