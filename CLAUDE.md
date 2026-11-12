@@ -316,7 +316,7 @@ Playful, warm, early-childhood classroom feel. Rounded corners on cards/buttons,
 - Graphic Organizer Templates (Google Slides)
 
 ### Chapter 15: Math (4)
-- Launch, Explore, Discuss Framework (PDF)
+- Launch, Explore, Discuss, Apply, Reflect Framework (PDF)
 - Number Talk Images and Templates (website)
 - Notice and Wonder Sample Lessons (NCTM website)
 - Problem Solving Work Mats (Google Drive folder)
